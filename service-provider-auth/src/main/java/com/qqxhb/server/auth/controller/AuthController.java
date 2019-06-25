@@ -1,5 +1,8 @@
 package com.qqxhb.server.auth.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
@@ -78,10 +81,29 @@ public class AuthController implements AuthControllerApi {
 
 	@Override
 	@PostMapping("/userlogout")
-	public ResponseResult logout(String accessToken) {
-		if (authService.logout(accessToken)) {
-			return ResponseResult.SUCCESS();
-		}
-		return ResponseResult.FAIL();
+	public ResponseResult logout() {
+		// 取出身份令牌
+		String uid = getTokenFormCookie();
+		// 删除redis中token
+		authService.logout(uid);
+		// 清除cookie
+		clearCookie(uid);
+		return new ResponseResult(CommonCode.SUCCESS);
+	}
+
+	// 从cookie中读取访问令牌
+	private String getTokenFormCookie() {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getRequest();
+		Map<String, String> cookieMap = CookieUtil.readCookie(request, "uid");
+		String access_token = cookieMap.get("uid");
+		return access_token;
+	}
+
+	// 清除cookie
+	private void clearCookie(String token) {
+		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+				.getResponse();
+		CookieUtil.addCookie(response, cookieDomain, "/", "uid", token, 0, false);
 	}
 }

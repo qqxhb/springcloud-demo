@@ -8,7 +8,7 @@ import io.swagger.annotations.ApiOperation;
 
 public interface AuthControllerApi {
 	@ApiOperation("退出接口")
-	ResponseResult logout(String accessToken);
+	ResponseResult logout();
 
 	@ApiOperation("登录接口")
 	LoginResult login(LoginRequest loginRequest);
