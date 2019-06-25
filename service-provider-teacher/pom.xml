@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>service-provider-cms</artifactId>
+    <artifactId>service-provider-teacher</artifactId>
     <dependencies>
         <!-- 导入Eureka客户端的依赖 -->
         <dependency>
