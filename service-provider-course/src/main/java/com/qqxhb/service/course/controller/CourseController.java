@@ -18,7 +18,7 @@ import com.qqxhb.springcloud.model.response.ResponseResult;
  * @version 1.0
  **/
 @RestController
-@RequestMapping("/course")
+@RequestMapping
 public class CourseController implements CourseControllerApi {
 
 	@Autowired
@@ -31,8 +31,8 @@ public class CourseController implements CourseControllerApi {
 	}
 
 	@Override
-	@DeleteMapping("/coursepic/delete")
-	public ResponseResult deleteCoursePic(@RequestParam("courseId") String courseId) {
+	@DeleteMapping("/coursepic/{id}")
+	public ResponseResult deleteCoursePic(@PathVariable("id") String courseId) {
 		return courseService.deleteCoursePic(courseId);
 	}
 

@@ -14,13 +14,14 @@ import com.qqxhb.springcloud.domain.teacher.response.TeacherResult;
 import com.qqxhb.springcloud.model.response.QueryResponseResult;
 
 @RestController
-@RequestMapping("teacher")
+@RequestMapping
 public class TeacherController implements TeacherControllerApi {
 
 	@Autowired
 	TeacherService teacherService;
 
 	@Override
+	@GetMapping
 	public QueryResponseResult findList(int page, int size, QueryRequest queryRequest) {
 		return teacherService.findList(page, size, queryRequest);
 	}

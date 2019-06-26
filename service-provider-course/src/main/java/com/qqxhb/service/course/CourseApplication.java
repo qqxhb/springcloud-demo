@@ -11,6 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import com.qqxhb.springcloud.interceptor.FeignClientInterceptor;
+
 /**
  * @author Administrator
  * @version 1.0
@@ -31,5 +33,10 @@ public class CourseApplication {
 	@LoadBalanced // 开始客户端负载均衡
 	public RestTemplate restTemplate() {
 		return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
+	}
+
+	@Bean
+	public FeignClientInterceptor getFeignClientInterceptor() {
+		return new FeignClientInterceptor();
 	}
 }

@@ -144,4 +144,17 @@ public class AuthService {
 	public boolean logout(String accessToken) {
 		return stringRedisTemplate.delete(TOKEN_PREF + accessToken);
 	}
+
+	// 从redis查询令牌
+	public AuthToken getUserToken(String token) {
+		String userToken = stringRedisTemplate.opsForValue().get(TOKEN_PREF + token);
+		// 转成对象
+		try {
+			AuthToken authToken = JSON.parseObject(userToken, AuthToken.class);
+			return authToken;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

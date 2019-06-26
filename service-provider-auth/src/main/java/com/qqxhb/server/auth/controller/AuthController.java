@@ -18,6 +18,7 @@ import com.qqxhb.server.auth.service.AuthService;
 import com.qqxhb.springcloud.api.auth.AuthControllerApi;
 import com.qqxhb.springcloud.domain.auth.AuthCode;
 import com.qqxhb.springcloud.domain.auth.AuthToken;
+import com.qqxhb.springcloud.domain.auth.JwtResult;
 import com.qqxhb.springcloud.domain.auth.LoginRequest;
 import com.qqxhb.springcloud.domain.auth.LoginResult;
 import com.qqxhb.springcloud.exception.ExceptionCast;
@@ -75,7 +76,7 @@ public class AuthController implements AuthControllerApi {
 
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getResponse();
-		CookieUtil.addCookie(response, cookieDomain, "/", "jti", token, cookieMaxAge, false);
+		CookieUtil.addCookie(response, cookieDomain, "/", "uid", token, cookieMaxAge, false);
 
 	}
 
@@ -105,5 +106,23 @@ public class AuthController implements AuthControllerApi {
 		HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
 				.getResponse();
 		CookieUtil.addCookie(response, cookieDomain, "/", "uid", token, 0, false);
+	}
+
+	@Override
+	public JwtResult userjwt() {
+		// 取出cookie中的用户身份令牌
+		String uid = getTokenFormCookie();
+		if (uid == null) {
+			return new JwtResult(CommonCode.FAIL, null);
+		}
+
+		// 拿身份令牌从redis中查询jwt令牌
+		AuthToken userToken = authService.getUserToken(uid);
+		if (userToken != null) {
+			// 将jwt令牌返回给用户
+			String jwt_token = userToken.getJwt_token();
+			return new JwtResult(CommonCode.SUCCESS, jwt_token);
+		}
+		return new JwtResult(CommonCode.FAIL, null);
 	}
 }
