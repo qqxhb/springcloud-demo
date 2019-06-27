@@ -34,7 +34,7 @@ public class CourseApplicationTest {
 	@Test
 	public void testFeign() {
 		for (int i = 0; i < 5; i++) {
-			String result = teacherClient.getTeacherById(i);
+			String result = teacherClient.getTeacherTest(i);
 			System.out.println(result);
 		}
 	}

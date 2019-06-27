@@ -35,8 +35,8 @@ public class CourseApplication {
 		return new RestTemplate(new OkHttp3ClientHttpRequestFactory());
 	}
 
-	@Bean
-	public FeignClientInterceptor getFeignClientInterceptor() {
-		return new FeignClientInterceptor();
-	}
+//	@Bean
+//	public FeignClientInterceptor getFeignClientInterceptor() {
+//		return new FeignClientInterceptor();
+//	}
 }

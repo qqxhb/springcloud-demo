@@ -34,9 +34,6 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: xml/*.xml
-security:
-  basic:
-    enabled: true
 auth:
   tokenValiditySeconds: 1200  #token存储到redis的过期时间
   clientId: WebApp
