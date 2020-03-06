@@ -15,6 +15,9 @@ eureka:
     prefer-ip-address:  true  #将自己的ip地址注册到Eureka服务中
     ip-address: ${IP_ADDRESS:127.0.0.1}
     instance-id: ${spring.application.name}:${server.port} #指定实例id
+feign:
+  hystrix:
+    enabled: true #feign使用hystrix
 ribbon:
   MaxAutoRetries: 2 #最大重试次数，当Eureka中可以找到服务，但是服务连不上时将会重试
   MaxAutoRetriesNextServer: 3 #切换实例的重试次数

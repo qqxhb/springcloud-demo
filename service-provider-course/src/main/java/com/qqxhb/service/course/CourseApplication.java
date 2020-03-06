@@ -5,18 +5,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
+import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
-import com.qqxhb.springcloud.interceptor.FeignClientInterceptor;
-
 /**
  * @author Administrator
  * @version 1.0
  **/
+@EnableHystrixDashboard //开启HystrixDashboard
+@EnableHystrix //开启Hystrix
 @EnableFeignClients // 开始feignClient
 @EnableDiscoveryClient
 @SpringBootApplication
