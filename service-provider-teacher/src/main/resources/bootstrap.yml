@@ -5,4 +5,8 @@ spring:
       profile: dev   #这个是要获取的环境 对应的便是{profile}
       label: master #这个就是获取的节点 对应的是{label}
       uri: http://localhost:8080/ #这就是我们config server的一个地址
-     
+  zipkin:
+    base-url: http://localhost:9411  #指定Zipkin server地址
+  sleuth:
+    sampler:
+      probability: 1.0  #request采样的数量 默认是0.1 也即是10%  顾名思义 采取10%的请求数据  因为在分布式系统中，数据量可能会非常大，因此采样非常重要。我们示例数据少最好配置为1全采样   

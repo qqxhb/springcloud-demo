@@ -1,0 +1,17 @@
+server:
+  port: 9411 
+spring:
+  application:
+    name: springcloud-sleuth
+management:
+  metrics:
+    web:
+      server:
+        autoTimeRequests: false
+zipkin:
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      cluster: springcloud
+      hosts: http://localhost:9200
+      index: zipkin
